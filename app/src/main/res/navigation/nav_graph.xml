@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/partnerListFragment">
+
+    <fragment
+        android:id="@+id/partnerListFragment"
+        android:name="com.marcelbuturuga.mypartners.ui.list.PartnerListFragment"
+        android:label="Parteneri"
+        tools:layout="@layout/fragment_partner_list">
+        <action
+            android:id="@+id/action_partnerListFragment_to_partnerDetailFragment"
+            app:destination="@id/partnerDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/partnerDetailFragment"
+        android:name="com.marcelbuturuga.mypartners.ui.detail.PartnerDetailFragment"
+        android:label="Detalii Partener"
+        tools:layout="@layout/fragment_partner_detail">
+        <argument
+            android:name="partner"
+            app:argType="com.marcelbuturuga.mypartners.data.model.Partner"
+            app:nullable="false" />
+    </fragment>
+</navigation>
