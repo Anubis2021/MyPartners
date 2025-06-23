@@ -35,15 +35,20 @@ class PartnerListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = PartnerSectionedAdapter { partner ->
-            val bundle = Bundle().apply {
-                putParcelable("partner", partner)
+        adapter = PartnerSectionedAdapter(
+            onClick = { partner ->
+                val bundle = Bundle().apply {
+                    putParcelable("partner", partner)
+                }
+                findNavController().navigate(
+                    R.id.partnerDetailFragment,
+                    bundle
+                )
+            }, 
+            onLongClickListener = {
+                viewModel.removePartner(it)
             }
-            findNavController().navigate(
-                R.id.partnerDetailFragment,
-                bundle
-            )
-        }
+        )
 
         binding.recyclerView.adapter = adapter
 
@@ -54,6 +59,7 @@ class PartnerListFragment : Fragment() {
         }
 
         viewModel.loadPartners()
+
     }
 
     override fun onDestroyView() {

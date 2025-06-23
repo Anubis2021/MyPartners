@@ -1,6 +1,7 @@
 package com.marcelbuturuga.mypartners.ui.list
 
 import android.view.LayoutInflater
+import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.marcelbuturuga.mypartners.data.model.Partner
@@ -8,7 +9,8 @@ import com.marcelbuturuga.mypartners.databinding.ItemPartnerBinding
 import com.marcelbuturuga.mypartners.databinding.ItemSectionHeaderBinding
 
 class PartnerSectionedAdapter(
-    private val onClick: (Partner) -> Unit
+    private val onClick: (Partner) -> Unit,
+    private val onLongClickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<ListItem>()
@@ -61,7 +63,13 @@ class PartnerSectionedAdapter(
             binding.root.setOnClickListener {
                 onClick(partner)
             }
+            binding.partnerCard.setOnLongClickListener {
+               onLongClickListener(partner.id)
+                true
+            }
         }
+
+
     }
 
     sealed class ListItem {
@@ -73,4 +81,6 @@ class PartnerSectionedAdapter(
         private const val VIEW_TYPE_HEADER = 0
         private const val VIEW_TYPE_ITEM = 1
     }
+
+
 }

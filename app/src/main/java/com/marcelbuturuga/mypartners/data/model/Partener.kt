@@ -9,5 +9,6 @@ data class Partner(
     val name: String,
     val description: String,
     val rating: Int,
-    val image_url: String
+    val image_url: String,
+    val isRemoved: Boolean = false
 ) : Parcelable

@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,4 +30,18 @@ class PartnerListViewModel @Inject constructor(
             }
         }
     }
+
+    fun removePartner(id: Int) {
+        viewModelScope.launch {
+            try {
+                val partners = repository.removePartner(id)
+                _groupedPartners.value = partners.groupBy { it.rating }
+            } catch (e : Exception) {
+                // TODO
+            }
+        }
+
+    }
+
+
 }
