@@ -10,7 +10,7 @@ import com.marcelbuturuga.mypartners.databinding.ItemSectionHeaderBinding
 
 class PartnerSectionedAdapter(
     private val onClick: (Partner) -> Unit,
-    private val onLongClickListener: (Int) -> Unit
+    private val onLongClickListener: (Partner) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<ListItem>()
@@ -64,7 +64,7 @@ class PartnerSectionedAdapter(
                 onClick(partner)
             }
             binding.partnerCard.setOnLongClickListener {
-               onLongClickListener(partner.id)
+               onLongClickListener(partner)
                 true
             }
         }

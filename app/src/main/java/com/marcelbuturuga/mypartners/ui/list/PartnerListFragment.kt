@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.marcelbuturuga.mypartners.R
 import com.marcelbuturuga.mypartners.databinding.FragmentPartnerListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,9 +45,10 @@ class PartnerListFragment : Fragment() {
                     R.id.partnerDetailFragment,
                     bundle
                 )
-            }, 
-            onLongClickListener = {
-                viewModel.removePartner(it)
+            },
+            onLongClickListener = { partner ->
+                viewModel.removePartner(partner)
+                Snackbar.make(binding.root, "${partner.name} a fost eliminat", Snackbar.LENGTH_SHORT).show()
             }
         )
 

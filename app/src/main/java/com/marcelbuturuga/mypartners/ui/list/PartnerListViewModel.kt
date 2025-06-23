@@ -31,17 +31,12 @@ class PartnerListViewModel @Inject constructor(
         }
     }
 
-    fun removePartner(id: Int) {
+    fun removePartner(partner: Partner) {
         viewModelScope.launch {
-            try {
-                val partners = repository.removePartner(id)
-                _groupedPartners.value = partners.groupBy { it.rating }
-            } catch (e : Exception) {
-                // TODO
-            }
+            val updated = repository.markAsRemoved(partner.id)
+            _groupedPartners.value = updated
+                .filterNot { it.isRemoved }
+                .groupBy { it.rating }
         }
-
     }
-
-
 }

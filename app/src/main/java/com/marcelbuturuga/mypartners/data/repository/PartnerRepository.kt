@@ -9,21 +9,17 @@ class PartnerRepository @Inject constructor(
     private val api: PartnerApi
 ) {
 
-    private var _partner: List<Partner> = ArrayList<Partner>();
+    private var partners: List<Partner> = emptyList()
 
     suspend fun getPartners(): List<Partner> {
-//         api.getPartners()
-
-        _partner = api.getPartners()
-
-        return _partner
-
+        partners = api.getPartners()
+        return partners
     }
 
-    suspend fun removePartner(id: Int): List<Partner> {
-
-        return _partner.filter {
-            it.id == id
+    fun markAsRemoved(id: Int): List<Partner> {
+        partners = partners.map {
+            if (it.id == id) it.copy(isRemoved = true) else it
         }
+        return partners
     }
 }
